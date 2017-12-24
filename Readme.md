@@ -12,3 +12,6 @@ A very minor part of the "sharePlate" project, done to to integrate with the app
 ![alt text](https://github.com/abu-abraham/IngredientFetcher/blob/master/images/Screenshot_2017-12-24-11-30-28-744_com.facebook.orca.png)
 
 
+Spell checker is trained using train.txt and the probability of a word given the previous word is considered to predict correct word given a spelling error. (Would be better if trained with actual messgaes rather than train.txt)
+
+
