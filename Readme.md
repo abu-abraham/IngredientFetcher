@@ -1,12 +1,9 @@
 ## FOOD INGREDIENT FETCHER ##
 
-Simply return the ingredients of the dish specified. 
+A chat-bot to return the ingredients of the dish specified. Also, rembembers the context of the chat along with spelling detection, and capabablity to match ingredients to dishes.
 
-A very minor part of the "sharePlate" project, done to to integrate with the application and maybe more. 
+A very minor part of the "sharePlate" project, done to to integrate with the application. 
 
-Changes to me made : 
-
-Just add the key for microsoft bing search API.
 
 ![alt text](https://github.com/abu-abraham/IngredientFetcher/blob/master/images/Screenshot_2017-12-24-11-34-28-516_com.facebook.orca.png)
 
