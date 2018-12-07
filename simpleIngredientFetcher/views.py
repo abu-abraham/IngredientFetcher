@@ -14,8 +14,9 @@ from django.views.decorators.csrf import csrf_exempt
 import query_processor
 import query_parser
 
-def post_facebook_message(fbid, recevied_message):           
-    post_message_url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAbfKFmzqN8BAMzCIjDOFjV8rZBnUbn0bEt7qqYCWfa9gW4q1lI1RUu3PKsRpG6dOf1RJav85Dr1vtLYNjfYriPuIBU8cpOM7zMa3ryot7pMjybKsTvFUHqKMecrp2PS4hDROv39ZAURZCLkZCoySNQ0Lb2whqwOk4i54l5gjwZDZD' 
+def post_facebook_message(fbid, recevied_message):   
+    access = "EAAbfKFmzqN8BAMzCIjDOFjV8rZBnUbn0bEt7qqYCWfa9gW4q1lI1RUu3PKsRpG6dOf1RJav85Dr1vtLYNjfYriPuIBU8cpOM7zMa3ryot7pMjybKsTvFUHqKMecrp2PS4hDROv39ZAURZCLkZCoySNQ0Lb2whqwOk4i54l5gjwZDZD";        
+    post_message_url = 'https://graph.facebook.com/v2.6/me/messages?access_token='+access 
     response_msg = json.dumps({"recipient":{"id":fbid}, "message":{"text":return_ingredients(recevied_message,fbid)}})
     status = requests.post(post_message_url, headers={"Content-Type": "application/json"},data=response_msg)
     print(status.json())
@@ -92,7 +93,7 @@ class FacebookView(generic.View):
         for entry in incoming_message['entry']:
             for message in entry['messaging']:
                 if 'message' in message:
-                    print "recived message "
+                    print "recieved message "
                     print(message)  
                     post_facebook_message(message['sender']['id'], message['message']['text'])   
         return HttpResponse()
