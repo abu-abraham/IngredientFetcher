@@ -36,7 +36,7 @@ def ingredient_history_value(dish):
         sdish = models.Ingredients.objects.filter(dish=dish)
         return str(sdish[0].ingredients)
     except:
-        print "not found"
+        print("not found")
         return None
     return None
     
@@ -68,20 +68,19 @@ def log_user_query(fbid,dish,context):
 def earlier_query_relevant(fbid):
     try:
         p = models.UserActivity.objects.get(userId=fbid)
-        print "user entry present"
+        print("user entry present")
         return True
     except:
         return False
 
 def get_earlier_topic(fbid):
     p = models.UserActivity.objects.get(userId=fbid)
-    print "returning old topic"
+    print("returning old topic")
     return p.topic
 
 def earlier_relavant_context(fbid):
     try:
         p = models.UserActivity.objects.get(userId=fbid)
-        print p.context
         return p.context
     except:
         return 0
@@ -98,9 +97,8 @@ def check_and_correct_spellings(message):
     message = message.split();
     w=""
     for index,word in enumerate(message):
-        if word not in vocab_list:
-            print vocab_list
-            if word not in full_list:
+        if word not in vocab_list: #Not a food
+            if word not in full_list: #Not a known word
                 similar_list = get_most_similar_words(word)
                 if index == 0:
                     most_probable_word = get_most_probable(similar_list,' ')
@@ -125,8 +123,6 @@ def get_most_similar_words(query_word):
 
 def get_most_probable(similar_list,previous_word):
     d = {}
-    print len(word_1gram_dict)
-    print len(full_list)
     for entry in similar_list:
         c = 0
         if not entry in word_1gram_dict:

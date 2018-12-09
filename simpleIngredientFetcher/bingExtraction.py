@@ -1,4 +1,4 @@
-import urllib2
+import urllib
 import requests
 import json
 from lxml import html
@@ -9,7 +9,6 @@ import query_processor
 measurement_description_words = []
 
 def extract(site):
-    print site
     page = requests.get(site)
     tree = html.fromstring(page.content)
     items = tree.find_class("ingredient-description")
@@ -18,7 +17,7 @@ def extract(site):
     for line in items:
         if "None" not in line or line != "None":
             returnList += (line+", ")
-    print returnList
+    print(returnList)
     return returnList;
 
 
@@ -30,7 +29,7 @@ def find_ingredients(dish):
     word_map_prev = {}
     current_map = {}
     while i<10:
-        print str(r.json()['webPages']['value'][i]['url'])
+        print (str(r.json()['webPages']['value'][i]['url']))
         if "taste.com" in str(r.json()['webPages']['value'][i]['url']) and not "collection" in str(r.json()['webPages']['value'][i]['url']):
             return trim_and_return(str(extract(str(r.json()['webPages']['value'][i]['url']))))
         i+=1;

@@ -22,28 +22,25 @@ def post_facebook_message(fbid, recevied_message):
     print(status.json())
 
 def return_ingredients(whole_message,fbid):
-    whole_message=query_processor.check_and_correct_spellings(whole_message);
-    print whole_message
-    whole_message = query_parser.format_message(whole_message);
+    whole_message=query_processor.check_and_correct_spellings(whole_message)
+    whole_message = query_parser.format_message(whole_message); #clean message
     if query_parser.message_type(whole_message) == query_parser.MessageType.Greeting:
         return "Hey there :)"
-    #Find dish from message
     operation = query_parser.parse_operation(whole_message, fbid)
-    print operation
     if operation == query_parser.Operation.Ingredient:
         dish = query_processor.get_dish(whole_message)
         if len(dish)<=0:
-            print "trying to link with earlier question"
+            print("trying to link with earlier question")
             if query_processor.earlier_query_relevant(fbid):
                 dish = query_processor.get_earlier_topic(fbid)
                 whole_message+= " "+dish
-                print "earlier topic was "+dish
+                print("earlier topic was "+dish)
             else:
                 return "Sorry, couldn't understand the query. I am just a few days old, hopefully I will be a good learner :)"
         query_processor.log_user_query(fbid,dish,query_parser.Operation.Ingredient)
         value_in_DB = query_processor.ingredient_history_value(dish);
         if value_in_DB != None:
-            print "Stored result"
+            print("Stored result")
             return value_in_DB;
         result = bingExtraction.find_ingredients(dish)
         if result == None or len(result) <= 0: 
@@ -57,7 +54,7 @@ def return_ingredients(whole_message,fbid):
     elif operation == query_parser.Operation.Recipie:
         dish = query_processor.get_dish(whole_message)
         if len(dish)<=0:
-            print "trying to link with earlier question"
+            print("trying to link with earlier question")
             if query_processor.earlier_query_relevant(fbid):
                 dish = " "+query_processor.get_earlier_topic(fbid)
             else:
@@ -93,7 +90,7 @@ class FacebookView(generic.View):
         for entry in incoming_message['entry']:
             for message in entry['messaging']:
                 if 'message' in message:
-                    print "recieved message "
+                    print("recieved message ")
                     print(message)  
                     post_facebook_message(message['sender']['id'], message['message']['text'])   
         return HttpResponse()

@@ -5,7 +5,6 @@ def return_vectors_of_all_dishes():
     for item in content:
         for vec in item.split():
             temp_set.add(str(vec).lower())
-    print len(temp_set)
     return generate_vectors(content,list(temp_set))
 
 def generate_vectors(content, temp_list):
@@ -17,7 +16,6 @@ def generate_vectors(content, temp_list):
             tmp.append(temp_list.index(vec))
         vector_rep[item.strip()] = tmp
         tmp = []
-    print temp_list
     return vector_rep,temp_list
 
 

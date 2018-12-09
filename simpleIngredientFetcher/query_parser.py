@@ -19,7 +19,6 @@ def parse_operation(message,fbid):
     dish = query_processor.get_dish(message)
     message = message.split()
     dish = dish.split()
-    print "here - 1"
     if any_related_in(["recipie","step","how","guide"],message):
         return Operation.Recipie
     pos = get_position(dish,message)
@@ -47,7 +46,7 @@ def related_in(word, message):
         syns = wordnet.synsets(word)
         for item in syns:
             if item.lemmas()[0].name() in message:
-                print item.lemmas()[0].name()
+                print(item.lemmas()[0].name())
                 return True
     return False
 
